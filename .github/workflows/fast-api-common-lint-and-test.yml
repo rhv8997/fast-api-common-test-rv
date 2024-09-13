@@ -1,0 +1,30 @@
+name: Fast API Common Lint And Test
+
+env:
+  POETRY_HOME: /opt/poetry
+
+on:
+  push:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    container: python:3.10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Enable Virtual Environment and Install Poetry
+        run: |
+          python3 -m venv $POETRY_HOME
+          $POETRY_HOME/bin/pip install poetry==1.5.1
+          ln -s $POETRY_HOME/bin/poetry /usr/bin/poetry
+          poetry install
+          . $(poetry env info --path)/bin/activate
+      
+      - name: Check File Linting
+        run: |
+          poetry run black --check .
+          poetry run isort --check .
+      
+      - name: Run Tests
+        run: poetry run pytest -v

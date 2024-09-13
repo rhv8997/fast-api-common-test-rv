@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "fastapi-common"
+version = "0.7.5"
+description = "A collection of common tools for FastAPI projects"
+authors = ["James Lewis <james.lewis@faculty.ai>"]
+readme = "README.md"
+packages = [{ include = "fastapi_common" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = {extras = ["email"], version = "^2.5.3"}
+fastapi = {version = "0.100.0", extras = ["all"]}
+requests = "^2.31.0"
+python-jose = "^3.3.0"
+loguru = "^0.7.2"
+aiohttp = "^3.9.1"
+uuid6 = "^2024.1.12"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.2"
+black = "^23.3.0"
+isort = "^5.12.0"
+pre-commit = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+[tool.isort]
+profile = "black"
+skip_gitignore = true

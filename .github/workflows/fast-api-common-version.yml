@@ -1,0 +1,21 @@
+name: Fast API Common Version
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Version Number and Push With Tag
+        run: | # TODO: 'git remote set-url --push origin "https..."' to point to fast api common github repo url
+          GIT_TAG=$(date +%Y.%m%d.%H%M)
+          echo "GIT_TAG is $GIT_TAG"
+          git config --global user.email rhv8997@gmail.com
+          git config --global user.name rhv8997
+          git remote set-url --push origin "https://${{secrets.CLASSIC_PAT}}@github.com/rhv8997/fast-api-common-test-rv.git"
+          git tag -a "$GIT_TAG" -m "$GIT_TAG"
+          git push origin "$GIT_TAG"
